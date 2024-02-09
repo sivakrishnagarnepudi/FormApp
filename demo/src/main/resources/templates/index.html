@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+<form id="myForm">
+    <fieldset>
+        <legend>RegistrationForm</legend>
+        <label for="fname">Firstname:</label><br>
+        <input type="text" id="fname"name="fname"><br><br>
+        <label for="mname">Midlename:</label><br>
+        <input type="text"id="mname" name="mname"><br><br>
+        <label for="lname">Lastname:</label><br>
+        <input type="text"id="lname"name="lname"><br><br>
+        <label for="gmail">Gmail</label><br>
+        <input type="text"id="gmail"name="gmail"><br><br>
+        <label for="mobno">Mobno</label><br>
+        <input type="text"id="mobno"name=""> <br><br><p>Languages</p>
+        <input type="checkbox" id="html" name="fav_language" value="HTML">
+        <label for="html">HTML</label><br>
+        <input type="checkbox"id="Javafullstack" name="fullstackjava" value="fullstackjava">
+        <label for="javafullstack">JAVAFULLSTACK</label><br>
+        <input type="checkbox" id="datascience" name="Datascience" value="data">
+        <label for="datascience">DATASCIENCE</label><br>
+        <input type="checkbox" id="python" name="c" value="bootstrap">
+        <label for="python">PYTHON</label><br>
+        <input type="checkbox" id="dotnet" name="dot" value="dottnet">
+        <label for="dotnet">.NET</label><br><p>Duration</p>
+        <input type="radio" id="duration"name="d"value="d">
+        <label for="duration">3MONTHS</label><br>
+        <input type="radio" id="duration1"name="d"value="d">
+        <label for="duration1">6MONTHS</label><br>
+        <label for="Gender">Gender</label>
+        <select id="Gender"name="gender">
+           <option value=""> </option>
+            <option value="male">MALE</option>
+            <option value="female">FEMALE</option>
+        </select>
+        <label for="Gender">HighestQualification</label>
+        <select id="Highestqualification" name="highestqualification">
+            <option value=""> </option>
+            <option value="btech">BTECH</option>
+            <option value="degree">DEGREE</option>
+            <option value="masters">MASTERS</option>
+
+        </select>
+       <button type="submit">Submit</button>
+
+    </fieldset>
+
+</form>
+<script>
+    document.getElementById("myForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent the form from submitting
+
+        // Get form values
+        const firstName = document.getElementById("fname").value;
+        // Get other form values similarly
+
+        // Example: Validate form fields
+        if (firstName === "") {
+            alert("Please enter your first name.");
+            return; // Stop form submission
+        }
+
+        // Perform form submission using AJAX
+        const formData = new FormData(document.getElementById("myForm"));
+        fetch("/submitForm", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            return response.text();
+        })
+        .then(data => {
+            console.log(data); // Log the response from the server
+            alert("Form submitted successfully!"); // Notify the user
+            // Optionally, redirect to a success page or perform other actions
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("Error submitting user details. Please try again later."); // Notify the user
+        });
+    });
+</script>
+
+</body>
+</html>
